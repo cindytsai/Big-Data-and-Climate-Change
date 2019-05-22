@@ -19,7 +19,7 @@ cursor = conn.cursor()
 @:param table_name string
 '''
 def createTABLE(table_name) :
-    sql_cmd = "CREATE TABLE IF NOT EXISTS " + "`" +table_name + "`"\
+    sql_cmd = "CREATE TABLE IF NOT EXISTS " + "`" + table_name + "`"\
               "(ID       INTEGER PRIMARY KEY AUTOINCREMENT," \
               "STN       TEXT, WBAN TEXT, YEARMODA TEXT," \
               "TEMP_AVG	 REAL, TEMP_COUNT    INTEGER," \

@@ -2,10 +2,10 @@ import sqlite3
 import numpy as np
 
 # TODO: file dependent
-database_name = "23119_GSOD.db"
+database_name = "23119_GSOD"
 
 # Connect to database
-conn = sqlite3.connect(database_name)
+conn = sqlite3.connect(database_name+".db")
 cursor = conn.cursor()
 
 
@@ -130,3 +130,7 @@ def insertField(table_name, field_name, value_list):
                     break
             if have_field == 0:
                 print("(insertField) NO FIELD : ", field_name)
+
+
+start_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = 1")[0:4])
+end_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = " + str(getTableIDMax(database_name+"_RAW")))[0:4])

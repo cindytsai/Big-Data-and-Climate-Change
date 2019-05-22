@@ -1,5 +1,7 @@
 import sqlite3
 import numpy as np
+import datetime
+import getSQLite
 
 # FOR Global Summary of the Day GSOD file
 # station dependent
@@ -103,7 +105,7 @@ def readFIELDWHERE(table_name, field, where, nan_value) :
 #     cursor.execute("DROP TABLE " + "`" + str(year) + "`")
 
 # CREATE year TABLES
-# for year in range(start_year, end_year+1):
+# for year in [1933, 1941, 1999, 2000, 2001, 2002, 2003, 2004, 2015, 2018]:
 #     print (year)
 #     createTABLE(str(year))
 
@@ -276,10 +278,58 @@ def listOfValue(ID):
 
     return value_list
 
+# print(listOfValue("19330102", 2))
+
+'''
+@:param moda string, "moda" format
+@:return check   boolean
+'''
+def checkDate(moda):
+    # Check if it is a valid date
+    mo = int(moda[0:2])
+    da = int(moda[2:4])
+    try:
+        # 1933 has no 02/29, skip it
+        newDate = datetime.datetime(1933, mo, da)
+        check = True
+    except ValueError:
+        check = False
+
+    return check
+
+
+# Create every_day list, so nextDate can produce next day.
+every_day = []
+for month in ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"]:
+    for day in ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16",
+                "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"]:
+        # Skip invalid date and 02/29
+        date = month + day
+        if checkDate(date) == False:
+            break
+        every_day.append(date)
+
+'''
+@:param  today string   "yearmoda" format
+@:return nextday string
+'''
+def nextDate(today):
+    year = today[0:4]
+    today = today[4:8]
+
+    # Find today's index in every_day
+    for i in range(len(every_day)):
+        if today == every_day[i]:
+            # For days other then 12/31
+            try:
+                next_date = every_day[i + 1]
+                return year + next_date
+            except:
+                return str(int(year)+1) + every_day[0]
+
 '''
 don't touch this part
 '''
-# print(listOfValue(7111))
 
 # for i in range(1, ID_max+1):
 #     list_value = listOfValue(i)
@@ -293,3 +343,42 @@ don't touch this part
 '''
 don't touch this part
 '''
+
+# Dealing with missing day in data
+
+# Create new TABLES of missing data year
+# Find out years who has missing day.
+# Add those days
+# missing_year [1933, 1941, 1999, 2000, 2001, 2002, 2003, 2004, 2015, 2018]
+missing_year = []
+for i in range(start_year, end_year+1, 1):
+    if getSQLite.getTableIDMax(str(i)) != 365:
+        missing_year.append(i)
+print(missing_year)
+# I have change the name to ____old, so no need
+# for year in missing_year:
+#     cursor.execute("DROP TABLE " + "`" + str(year) + "`")
+
+# CREATE year TABLES
+# for year in [1933, 1941, 1999, 2000, 2001, 2002, 2003, 2004, 2015, 2018]:
+#     print (year)
+#     createTABLE(str(year))
+
+######################################################
+
+missing_date_list_value = [station_STN, station_WBAN, "yearmoda"] + [np.nan] * 25
+first_date = "0101"
+for year in missing_year:
+    yearmoda = str(year) + first_date
+    while yearmoda != str(year+1) + first_date:
+        print("yearmoda : ", yearmoda)
+        ID = readFIELDWHERE(station_WBAN+"_GSOD_RAW", "ID", "YEARMODA = " + yearmoda, np.nan)
+        print(ID, type(ID))
+        if type(ID) != int:
+            missing_date_list_value[2] = yearmoda
+            insertVALUES(str(year), missing_date_list_value)
+            print("Missing ", yearmoda)
+        else:
+            insertVALUES(str(year), listOfValue(ID))
+            print("Have ", yearmoda)
+        yearmoda = nextDate(yearmoda)

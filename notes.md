@@ -37,7 +37,8 @@ Surface data hourly global. Too big to reach.
 - [ ] National Weather Service Text Narrative and Product Archive<br/>
 Services including watches, warnings, advisories, and forecasts.
 
-####Store it to MariaDB
+####Store it to SQLite3
+
 
 ##Method
 ####Machine Learning Wave Forecast

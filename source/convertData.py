@@ -4,6 +4,7 @@ import numpy as np
 # FOR Global Summary of the Day GSOD file
 # station dependent
 # WBAN_GSOD.db
+# TODO : data file dependent
 station_STN = "722860"
 station_WBAN = "23119"
 start_year = 1933
@@ -65,13 +66,13 @@ def insertVALUES(table_name, values) :
 @:param nan_value  according to value's data type
 @:return array     np.array
 '''
-def readFIELD(table_name, field, nan_value) :
+def readFIELD(table_name, field, nan_value):
     sql_cmd = "SELECT "+ field +" FROM " + "`" + table_name + "`"
     cursor.execute(sql_cmd)
 
     # Change to np.array type
     array = []
-    for value in cursor.fetchall() :
+    for value in cursor.fetchall():
         array.append(value[0])
     array = np.asarray(array)
 

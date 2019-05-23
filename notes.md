@@ -24,7 +24,7 @@ This dataset provides summary of the month temperature and precipitation observa
 - [ ] Global Historical Climatology Network (GHCN)<br/>
 Can download it via FTP. Used if I have time. Too many data.
 
-- [X] Global Summary of the Day (GSOD)<br/>
+- [ ] Global Summary of the Day (GSOD)<br/>
 These daily summaries are obtained by US Air Force
 
 - [ ] Automated Surface Observing Systems (ASOS)<br/>
@@ -38,7 +38,21 @@ Surface data hourly global. Too big to reach.
 Services including watches, warnings, advisories, and forecasts.
 
 ####Store it to SQLite3
+`getSQLite.py`module :<br/>
 
+function | Usage
+---------| -----
+**getField**| SELECT *field* FROM *table*
+**getFieldWhere**| SELECT *field* FROM *table* WHERE *where*
+**getTableIDMax**| SELECT ID FROM *table*
+**createTable**| ALTER TABLE *table* ADD COLUMN *field* *field_declaration*
+**insertField**| INSERT INTO *table* ( *field* ) VALUES ( *value[i]* )
+
+const.| Usage
+----- | -----
+**start_year** | start of the year of the data
+**end_year** | end of the year of the data
 
 ##Method
-####Machine Learning Wave Forecast
+
+####Fourier Transform

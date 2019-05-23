@@ -9,12 +9,13 @@ conn = sqlite3.connect(database_name+".db")
 cursor = conn.cursor()
 
 
-'''
-@:param table_name string
-@:param field_name string
-@:return array     np.array
-'''
 def getField(table_name, field_name):
+    '''
+    @:param table_name string
+    @:param field_name string
+    @:return array     np.array
+    '''
+
     sql_cmd = "SELECT " + field_name + " FROM " + "`" + table_name + "`"
 
     try:
@@ -31,13 +32,15 @@ def getField(table_name, field_name):
         array = np.asarray(array)
         return array
 
-'''
-@:param table_name string
-@:param field_name string
-@:param where      string    EX: "ID = 1"
-@:return value     dependents on the field
-'''
+
 def getFieldWhere(table_name, field_name, where):
+    '''
+    @:param table_name string
+    @:param field_name string
+    @:param where      string    EX: "ID = 1"
+    @:return value     dependents on the field
+    '''
+
     sql_cmd = "SELECT " + field_name + " FROM " + "`" + table_name + "`" + " WHERE " + where
 
     try:
@@ -53,11 +56,13 @@ def getFieldWhere(table_name, field_name, where):
             value = row[0]
         return value
 
-'''
-@:param table_name string
-@:return id_max    integer  => 0 means no ID yet
-'''
+
 def getTableIDMax(table_name):
+    '''
+    @:param table_name string
+    @:return id_max    integer  => 0 means no ID yet
+    '''
+
     sql_cmd = "SELECT ID FROM " + "`" + table_name + "`"
 
     try:
@@ -76,20 +81,23 @@ def getTableIDMax(table_name):
         return id_max
 
 
-'''
-@:param table_name string
-'''
 def createTable(table_name):
+    '''
+    @:param table_name string
+    '''
+
     sql_cmd = "CREATE TABLE IF NOT EXISTS " + "`" + table_name + "`" + " (ID INTEGER PRIMARY KEY AUTOINCREMENT)"
     cursor.execute(sql_cmd)
     conn.commit()
 
-'''
-@:param table_name        string
-@:param add_field_name    string
-@:param add_field_declare string
-'''
+
 def createTableColumn(table_name, add_field_name, add_field_declare):
+    '''
+    @:param table_name        string
+    @:param add_field_name    string
+    @:param add_field_declare string
+    '''
+
     sql_cmd = "ALTER TABLE " + "`" + table_name + "`" + " ADD COLUMN " + add_field_name + " " + add_field_declare
 
     try:
@@ -101,12 +109,13 @@ def createTableColumn(table_name, add_field_name, add_field_declare):
         print("(createTableColumn) or WRONG DECLARATION or EXISTS ALREADY: ", add_field_name, " ", add_field_declare)
 
 
-''' 
-@:param table_name string
-@:param field_name string, single field at a time
-@:param value_list list or array, elements depends on the field
-'''
 def insertField(table_name, field_name, value_list):
+    '''
+    @:param table_name string
+    @:param field_name string, single field at a time
+    @:param value_list list or array, elements depends on the field
+    '''
+
     # Add value from the start or from the existing field from the last one
 
     try:

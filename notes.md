@@ -55,4 +55,5 @@ const.| Usage
 
 ##Method
 
+####
 ####Fourier Transform

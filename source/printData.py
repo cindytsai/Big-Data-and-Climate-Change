@@ -2,7 +2,6 @@ import getSQLite
 import numpy as np
 
 # TODO : Data dependent
-field = "WDSP_MAX"
 start_year = getSQLite.start_year
 end_year = getSQLite.end_year
 total_year = end_year - start_year + 1
@@ -20,14 +19,69 @@ total_day = 365
 # Y = Y.transpose()
 
 
-Z = np.array([getSQLite.getField(str(start_year), field)])
-for year in range(start_year+1, end_year+1):
-    temp_Z = np.array([getSQLite.getField(str(year), field)])
-    Z = np.concatenate((Z, temp_Z), axis=0)
+def printData(field):
+    '''
+    print data initial
+    TABLE YEAR
+    FIELD TEMP_AVG
+    :param field: string
+    :return:
+    '''
 
-# np.savetxt("X_Day.csv", X, delimiter=",", fmt='%d')
-# np.savetxt("Y_Year.csv", Y, delimiter=",", fmt='%d')
+    Z = np.array([getSQLite.getField(str(start_year), field)])
+    for year in range(start_year + 1, end_year + 1):
+        temp_Z = np.array([getSQLite.getField(str(year), field)])
+        Z = np.concatenate((Z, temp_Z), axis=0)
 
-Z_str = Z.astype(str)
-Z_str[Z_str=='nan'] = ''
-np.savetxt(field+".csv", Z, delimiter=",", fmt='%s')
+    Z_str = Z.astype(str)
+    Z_str[Z_str == 'nan'] = ''
+    np.savetxt(field + ".csv", Z, delimiter=",", fmt='%s')
+
+
+def printDataMinor(field, table_name_minor, length):
+    '''
+    print manipulate data, with "minor" manipulation
+    YEAR + field + _ + minor
+    :param field:            string, data from initial data field EX: TEMP_AVG
+    :param table_name_minor: string, data manipulation EX: FFT
+    :param length:           int,    data length after manipulation
+    :return:
+    '''
+
+    table_name = str(start_year) + field + "_" + table_name_minor
+
+    # Set empty string
+    nan_array = [np.nan] * length
+    nan_array = np.asarray(nan_array)
+
+    # Check if getTableIDMax == 0, some can't be manipulate, and stored nothing
+    if getSQLite.getTableIDMax(table_name) == 0:
+        Z = np.array([nan_array])
+
+    else:
+        Z = np.array([getSQLite.getField(table_name, table_name_minor)])
+
+    for year in range(start_year+1, end_year+1):
+        table_name = str(year) + field + "_" + table_name_minor
+
+        # Get next Z, and check if ID max is 0 or not.
+        if getSQLite.getTableIDMax(table_name) == 0:
+            temp_Z = np.array([nan_array])
+        else:
+            temp_Z = np.array([getSQLite.getField(table_name, table_name_minor)])
+
+        Z = np.concatenate((Z, temp_Z), axis=0)
+
+
+    np.savetxt(field + "_" + table_name_minor + ".csv", Z, delimiter=",", fmt='%s')
+
+
+def printDataColumn(table_name, column_name):
+    '''
+    print single Column data
+    :param table_name: string
+    :param column_name: string
+    :return:
+    '''
+    Z = np.array(getSQLite.getField(table_name, column_name))
+    np.savetxt(table_name+"_"+column_name+".csv", Z, delimiter=",", fmt='%s')

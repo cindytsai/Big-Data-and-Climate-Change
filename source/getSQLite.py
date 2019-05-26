@@ -140,6 +140,43 @@ def insertField(table_name, field_name, value_list):
             if have_field == 0:
                 print("(insertField) NO FIELD : ", field_name)
 
+# def replaceField(table_name, field_name, value_list):
+#     '''
+#     Use when ID is not zero, which means there are other existing fields
+#     :param table_name: string
+#     :param field_name: string
+#     :param value_list: np.array or list
+#     :return:
+#     '''
+#
+#     try:
+#         for ID in range(1, len(value_list) + 1):
+#             # ID starts from 1
+#             # sql_cmd = "INSERT OR REPLACE INTO " + "`" + table_name + "`" + " (ID," + field_name + ") " + "VALUES " \
+#             #           "(" + str(ID) + "," + str(value_list[ID - 1]) + ")"
+#             sql_cmd = "INSERT OR REPLACE INTO " + "`" + table_name + "`" + " (ID," + field_name + ") " + "VALUES " \
+#                       "(" + str(ID) + "," + str(value_list[ID - 1]) + ")"
+#             cursor.execute(sql_cmd)
+#             conn.commit()
+#
+#     except:
+#         try:
+#             # Check if table have field field_name
+#             field_info = [i[1] for i in cursor.execute("PRAGMA table_info(" + table_name + ")")]
+#         except:
+#             print("(replaceField) NO TABLE : ", table_name)
+#         else:
+#             have_field = 0
+#             for j in range(len(field_info)):
+#                 if field_name == field_info[j]:
+#                     have_field = 1
+#                     break
+#             if have_field == 0:
+#                 print("(replaceField) NO FIELD : ", field_name)
+
+
+
+
 
 start_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = 1")[0:4])
 end_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = " + str(getTableIDMax(database_name+"_RAW")))[0:4])

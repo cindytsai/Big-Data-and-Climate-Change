@@ -2,6 +2,7 @@ import getSQLite
 from mpl_toolkits.mplot3d import Axes3D
 import matplotlib.pyplot as plt
 from matplotlib import cm
+import pandas as pd
 from matplotlib.ticker import LinearLocator, FormatStrFormatter
 import numpy as np
 
@@ -27,10 +28,10 @@ Y = np.arange(start_year, end_year+1)
 Y = np.array([Y, ] * total_day)
 Y = Y.transpose()
 
-Z = np.array([getSQLite.getField(str(start_year), field)])
-for year in range(start_year+1, end_year+1):
-    temp_Z = np.array([getSQLite.getField(str(year), field)])
-    Z = np.concatenate((Z, temp_Z), axis=0)
+df = pd.read_csv('../data/TEMP_AVG_Polyfit.csv', header=None)
+Z = df.values
+
+print(Z.shape)
 
 # Plot the surface
 surf = ax.plot_surface(X, Y, Z, rcount=total_year, ccount=total_day, cmap=cm.coolwarm)

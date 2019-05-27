@@ -1,8 +1,8 @@
 % file dependent
-Z = SNDP;
-Z_unit = 'Snow Depth(cm)';
-colorbar_string = 'cm';
-title_name = 'Total Snow Depth';
+Z = TEMPAVGPolyfit;
+Z_unit = 'Temperature(\circ C)';
+colorbar_string = '\circ C';
+title_name = 'Average Temperature (Polyfit)';
 start_year = 1933;
 end_year = 2018;
 

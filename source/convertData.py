@@ -280,11 +280,13 @@ def listOfValue(ID):
 
 # print(listOfValue("19330102", 2))
 
-'''
-@:param moda string, "moda" format
-@:return check   boolean
-'''
+
 def checkDate(moda):
+    '''
+    @:param moda string, "moda" format
+    @:return check   boolean
+    '''
+
     # Check if it is a valid date
     mo = int(moda[0:2])
     da = int(moda[2:4])

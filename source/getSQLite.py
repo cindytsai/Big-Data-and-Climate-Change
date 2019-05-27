@@ -120,8 +120,13 @@ def insertField(table_name, field_name, value_list):
 
     try:
         for i in range(len(value_list)):
-            sql_cmd = "INSERT INTO " + "`" + table_name + "`" + " (" + field_name + ") VALUES " \
-                      "(" + str(value_list[i]) + ")"
+            if type(value_list[i]) == str:
+                sql_cmd = "INSERT INTO " + "`" + table_name + "`" + " (" + field_name + ") VALUES " \
+                          "('" + str(value_list[i]) + "')"
+            else:
+                sql_cmd = "INSERT INTO " + "`" + table_name + "`" + " (" + field_name + ") VALUES " \
+                          "(" + str(value_list[i]) + ")"
+
             cursor.execute(sql_cmd)
             conn.commit()
 
@@ -180,3 +185,4 @@ def insertField(table_name, field_name, value_list):
 
 start_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = 1")[0:4])
 end_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = " + str(getTableIDMax(database_name+"_RAW")))[0:4])
+

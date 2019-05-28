@@ -105,6 +105,7 @@ for year in range(start_year, end_year+1):
     # Get the string value of each storm by year
     table_name = str(year) + "stormtype"
     storm_text = getSQLite.getField(table_name, "STORMTYPE")
+    # np.savetxt()
 
 
     # stem Plot, with storm
@@ -140,15 +141,17 @@ for year in range(start_year, end_year+1):
     # print("success", year)
 
     # hist Plot, log x scale, with storm count
-    plt.hist(distance2, bins=10**np.linspace(0, 2.7, 15), edgecolor='black', linewidth=1.2, label="storm num="+str(len(storm_text)))
-    plt.title("(T_MAX-T_AVG)**2 + (T_AVG-T_MIN)**2 Histogram xscale = log, year = " + str(year), color='b')
-    plt.xlabel("$^\Delta$T**2")
-    plt.ylabel("num")
-    plt.ylim([0, 170])
-    # plt.xscale('log')
-    plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
-    plt.savefig(str(year) + "deltaT^2 (Storm)_hist_xlog" + '.png', bbox_inches="tight")
-    plt.close()
-    print("success", year)
+    # plt.hist(distance2, bins=10**np.linspace(0, 2.7, 15), edgecolor='black', linewidth=1.2, label="storm num="+str(len(storm_text)))
+    # plt.title("(T_MAX-T_AVG)**2 + (T_AVG-T_MIN)**2 Histogram xscale = log, year = " + str(year), color='b')
+    # plt.xlabel("$^\Delta$T**2")
+    # plt.ylabel("num")
+    # plt.ylim([0, 170])
+    # # plt.xscale('log')
+    # plt.legend(loc='upper left', bbox_to_anchor=(1, 1))
+    # plt.savefig(str(year) + "deltaT^2 (Storm)_hist_xlog" + '.png', bbox_inches="tight")
+    # plt.close()
+    # print("success", year)
+
+    # Plot storm and temp^ 2 hist
 
 

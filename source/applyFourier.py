@@ -12,7 +12,7 @@ start_year = getSQLite.start_year
 end_year = getSQLite.end_year
 sample_rate = 365
 
-
+'''
 for year in range(start_year, end_year+1, 1):
     try:
         x = getSQLite.getField(str(year), want_field)
@@ -37,14 +37,14 @@ for year in range(start_year, end_year+1, 1):
         getSQLite.createTableColumn(table_name, table_name_minor, "REAL")
         getSQLite.insertField(table_name, table_name_minor, value_list)
 
-
+'''
 
 xf_freqs = fftpack.fftfreq(sample_rate) * (sample_rate/2)
-
+'''
 getSQLite.createTable("xf_freq_" + str(sample_rate))
 getSQLite.createTableColumn("xf_freq_" + str(sample_rate), "FREQ", "REAL")
 getSQLite.insertField("xf_freq_" + str(sample_rate), "FREQ", xf_freqs[0:sample_rate//2])
-
+'''
 # nan_value = [None] * (sample_rate//2)
 # print(nan_value)
 #
@@ -64,11 +64,14 @@ xf_mag_log = np.log10(np.abs(xf))
 '''
 
 
-'''
+
 # Plot
-ax = plt.stem(xf_freqs[0:len(xf)//2], xf_mag_log[0:len(xf)//2])
-plt.xlabel("Frequency (Hz)")
-plt.ylabel("log10(magnitude)")
-plt.title("log10(magnitude)")
+xf_mag = getSQLite.getField("2017TEMP_AVG_FFT", "FFT")
+xf_mag_log = np.log(xf_mag)
+
+ax = plt.stem(xf_freqs[0:len(xf_mag)//2], xf_mag_log[0:len(xf_mag)//2])
+plt.xlabel("Frequency (Hz)", fontsize=14)
+plt.ylabel("log10(magnitude)", fontsize=14)
+plt.title("log10(magnitude), year = 2017", fontsize=16, color='b')
 plt.show()
-'''
+

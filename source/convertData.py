@@ -17,10 +17,12 @@ ID_max = 29541
 conn = sqlite3.connect(station_WBAN+'_GSOD.db')
 cursor = conn.cursor()
 
-'''
-@:param table_name string
-'''
+
 def createTABLE(table_name) :
+    '''
+    @:param table_name string
+    '''
+
     sql_cmd = "CREATE TABLE IF NOT EXISTS " + "`" + table_name + "`"\
               "(ID       INTEGER PRIMARY KEY AUTOINCREMENT," \
               "STN       TEXT, WBAN TEXT, YEARMODA TEXT," \
@@ -44,11 +46,13 @@ def createTABLE(table_name) :
               "TORNADO   INTEGER)"
     cursor.execute(sql_cmd)
 
-'''
-@:param table_name string
-@:param values     list
-'''
+
 def insertVALUES(table_name, values) :
+    '''
+    @:param table_name string
+    @:param values     list
+    '''
+
     sql_cmd = "INSERT INTO " + "`" + table_name + "`" \
               " (STN, WBAN, YEARMODA, TEMP_AVG, TEMP_COUNT, DEWP_AVG, DEWP_COUNT, SLP_AVG, SLP_COUNT," \
               "  STP_AVG, STP_COUNT, VISIB_AVG, VISIB_COUNT, WDSP_AVG, WDSP_COUNT," \
@@ -62,13 +66,15 @@ def insertVALUES(table_name, values) :
     conn.commit()
 
 
-'''
-@:param table_name string
-@:param field      string
-@:param nan_value  according to value's data type
-@:return array     np.array
-'''
+
 def readFIELD(table_name, field, nan_value):
+    '''
+    @:param table_name string
+    @:param field      string
+    @:param nan_value  according to value's data type
+    @:return array     np.array
+    '''
+
     sql_cmd = "SELECT "+ field +" FROM " + "`" + table_name + "`"
     cursor.execute(sql_cmd)
 
@@ -83,14 +89,16 @@ def readFIELD(table_name, field, nan_value):
 
     return array
 
-'''
-@:param table_name string
-@:param field      string
-@:param where      string
-@:param nan_value  according to data type
-@:return value     according to data type
-'''
+
 def readFIELDWHERE(table_name, field, where, nan_value) :
+    '''
+    @:param table_name string
+    @:param field      string
+    @:param where      string
+    @:param nan_value  according to data type
+    @:return value     according to data type
+    '''
+
     sql_cmd = "SELECT " + field + " FROM " + "`" + table_name + "`" + " WHERE " + where
     cursor.execute(sql_cmd)
     value = np.nan
@@ -100,15 +108,11 @@ def readFIELDWHERE(table_name, field, where, nan_value) :
             value = np.nan
     return value
 
-
-# for year in range(start_year, end_year+1):
-#     cursor.execute("DROP TABLE " + "`" + str(year) + "`")
-
-# CREATE year TABLES
-# for year in [1933, 1941, 1999, 2000, 2001, 2002, 2003, 2004, 2015, 2018]:
-#     print (year)
-#     createTABLE(str(year))
-
+'''
+# Drop Table, if needed.
+for year in range(start_year, end_year+1):
+    cursor.execute("DROP TABLE " + "`" + str(year) + "`")
+'''
 
 # Read from table WBAN_GSOD_RAW.db
 # Convert units TEMP_AVG, DEWP_AVG, TEMP_MAX, TEMP_MIN
@@ -311,11 +315,12 @@ for month in ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", 
             break
         every_day.append(date)
 
-'''
-@:param  today string   "yearmoda" format
-@:return nextday string
-'''
+
 def nextDate(today):
+    '''
+    @:param  today string   "yearmoda" format
+    @:return nextday string
+    '''
     year = today[0:4]
     today = today[4:8]
 
@@ -329,22 +334,17 @@ def nextDate(today):
             except:
                 return str(int(year)+1) + every_day[0]
 
-'''
-don't touch this part
-'''
 
-# for i in range(1, ID_max+1):
-#     list_value = listOfValue(i)
-#     print(list_value[2])
-#     # And skip February 29
-#     if list_value[2][4:6] == "02" and list_value[2][6:8] == "29":
-#         continue
-#
-#     insertVALUES(list_value[2][0:4], list_value)
+# Insert value into table of year, according to year, and skip 2/29
+# Though some date are missing, we'll deal it in the next section of the code.
+for i in range(1, ID_max+1):
+    list_value = listOfValue(i)
+    print(list_value[2])
+    # And skip February 29
+    if list_value[2][4:6] == "02" and list_value[2][6:8] == "29":
+        continue
+    insertVALUES(list_value[2][0:4], list_value)
 
-'''
-don't touch this part
-'''
 
 # Dealing with missing day in data
 
@@ -357,14 +357,15 @@ for i in range(start_year, end_year+1, 1):
     if getSQLite.getTableIDMax(str(i)) != 365:
         missing_year.append(i)
 print(missing_year)
+
 # I have change the name to ____old, so no need
-# for year in missing_year:
-#     cursor.execute("DROP TABLE " + "`" + str(year) + "`")
+for year in missing_year:
+    cursor.execute("DROP TABLE " + "`" + str(year) + "`")
 
 # CREATE year TABLES
-# for year in [1933, 1941, 1999, 2000, 2001, 2002, 2003, 2004, 2015, 2018]:
-#     print (year)
-#     createTABLE(str(year))
+for year in missing_year:
+    print (year)
+    createTABLE(str(year))
 
 ######################################################
 

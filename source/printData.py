@@ -7,17 +7,17 @@ end_year = getSQLite.end_year
 total_year = end_year - start_year + 1
 total_day = 365
 
-
+'''
 # Get Data
-# X : 365 days
-# Y : year
-# Z : value
-# X = np.arange(1, total_day+1)
-# X = np.array([X, ] * total_year)
-# Y = np.arange(start_year, end_year+1)
-# Y = np.array([Y, ] * total_day)
-# Y = Y.transpose()
-
+X : 365 days
+Y : year
+Z : value
+X = np.arange(1, total_day+1)
+X = np.array([X, ] * total_year)
+Y = np.arange(start_year, end_year+1)
+Y = np.array([Y, ] * total_day)
+Y = Y.transpose()
+'''
 
 def printData(field):
     '''

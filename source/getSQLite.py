@@ -145,8 +145,10 @@ def insertField(table_name, field_name, value_list):
             if have_field == 0:
                 print("(insertField) NO FIELD : ", field_name)
 
+
 # def replaceField(table_name, field_name, value_list):
 #     '''
+#     ABORT!!! CAN'T WORK
 #     Use when ID is not zero, which means there are other existing fields
 #     :param table_name: string
 #     :param field_name: string
@@ -180,9 +182,5 @@ def insertField(table_name, field_name, value_list):
 #                 print("(replaceField) NO FIELD : ", field_name)
 
 
-
-
-
 start_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = 1")[0:4])
 end_year = int(getFieldWhere(database_name+"_RAW", "YEARMODA", "ID = " + str(getTableIDMax(database_name+"_RAW")))[0:4])
-

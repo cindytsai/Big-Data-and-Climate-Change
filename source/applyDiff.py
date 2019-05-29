@@ -62,7 +62,7 @@ for year in range(start_year+1, end_year+1):
 z_diff_list = diff(z, 5)
 z_diff_list = np.reshape(z_diff_list, (86, 365))
 
-# Get SLP_AVG
+# Get SLP_AVG full array
 want_field = "SLP_AVG"
 p = getSQLite.getField("1933", want_field)
 p[p == None] = np.nan
@@ -89,7 +89,7 @@ for i in range(total_year):
     pressure_diff = pressure_diff / LA.norm(pressure_diff)
 
     # Plot
-    plt.figure(figsize=(6,5))
+    plt.figure(figsize=(18,7))
     temp, = plt.plot(DAY, temp_diff, 'r.-', label='Temperature diff')
     pres, = plt.plot(DAY, pressure_diff, 'b.-', label='Pressure diff')
     plt.legend(loc='upper right')
@@ -102,4 +102,3 @@ for i in range(total_year):
     plt.close()
 
     plt.show()
-

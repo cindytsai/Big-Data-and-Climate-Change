@@ -38,9 +38,7 @@ def findDateStorm(NAME, date_list, storm_list):
                 year = date_ori[6:10]
                 
                 check = datetime.datetime(int(year), int(mo), int(da))
-                
-                # print("line : ", i)
-                # print(index[3], index[5])
+
                 date_list.append(year+mo+da)
                 storm_list.append(index[5])
             
@@ -106,31 +104,26 @@ def parseDate(date_string):
 
 ## Processing
 
-
-
 # Parsing .csv data
 for i in range(len(NAME_list)):
     yearmoda_list, stormtype_list = findDateStorm(NAME_list[i], yearmoda_list, stormtype_list)
-print(yearmoda_list)
-print(stormtype_list)
 
+'''
+# Drop table if needed.
+for year in range(start_year, end_year+1):
+    table_name = str(year) + "stormtypeDAY"
+    cursor.execute("DROP TABLE " + "`"+table_name+"`")
+    conn.commit()
 
-# Drop table
-# for year in range(start_year, end_year+1):
-#     table_name = str(year) + "stormtypeDAY"
-#     cursor.execute("DROP TABLE " + "`"+table_name+"`")
-#     conn.commit()
-#
-#     table_name = str(year) + "stormtype"
-#     cursor.execute("DROP TABLE " + "`"+table_name+"`")
-#     conn.commit()
-#
-#     print("DROP TABLE : ", year)
+    table_name = str(year) + "stormtype"
+    cursor.execute("DROP TABLE " + "`"+table_name+"`")
+    conn.commit()
 
+    print("DROP TABLE : ", year)
+'''
 
 
 #Create table and column
-
 for year in range(start_year, end_year+1):
     table_name = str(year) + "stormtypeDAY"
     getSQLite.createTable(table_name)
@@ -144,28 +137,16 @@ for year in range(start_year, end_year+1):
 
 
 # Put data into table
-
-
 for i in range(len(yearmoda_list)):
     # year string; day int
     year, day = parseDate(yearmoda_list[i])
 
-    # print(year, day)
-
     # insert into TABLE YEARstormtypeDAY; FIELD DAY
     table_name = str(year) + "stormtypeDAY"
-    # sql_cmd = "INSERT INTO " + "`" + table_name + "`" + " (DAY) VALUES (" + str(day) +")"
-    # cursor.execute(sql_cmd)
-    # conn.commit()
     getSQLite.insertField(table_name, "DAY", [day])
 
 
     # insert into TABLE YEARstormtype; FIELD STORMTYPE
     table_name = str(year) + "stormtype"
-    # sql_cmd = "INSERT INTO " + "`" + table_name + "`" + " (STORMTYPE) VALUES ('" + str(stormtype_list[i]) + "')"
-    # cursor.execute(sql_cmd)
-    # conn.commit()
     getSQLite.insertField(table_name, "STORMTYPE", [stormtype_list[i]])
     print(year)
-
-

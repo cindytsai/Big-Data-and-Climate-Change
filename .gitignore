@@ -1,0 +1,7 @@
+# ignore there file
+
+source/23119_GSOD.db-journal
+source/__pycache__/
+
+.idea/*
+

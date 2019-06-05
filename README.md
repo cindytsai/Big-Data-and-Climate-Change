@@ -9,7 +9,13 @@ All daily weather report are from [Global Summary of the Day (GSOD)](https://www
 - [ ] Raw data from Global Summary of the Day (GSOD), convert and insert _directly_ into SQLite.</br>
 Since I import data into database manually by using [DB Browser](https://sqlitebrowser.org/) first, it still needs script to convert and insert into SQLite automaticlly.
 
+***
+
 ## Contents
+- Overview
+- Raw Data Source
+
+## Overview
 
 ## Raw Data Source 
 - [Global Summary of the Day (GSOD)](https://www7.ncdc.noaa.gov/CDO/cdoselect.cmd?datasetabbv=GSOD&countryabbv=&georegionabbv=)</br>

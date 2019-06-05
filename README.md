@@ -14,8 +14,10 @@ Since I import data into database manually by using [DB Browser](https://sqliteb
 ## Raw Data Source 
 - [Global Summary of the Day (GSOD)](https://www7.ncdc.noaa.gov/CDO/cdoselect.cmd?datasetabbv=GSOD&countryabbv=&georegionabbv=)</br>
 The data format and column name is nice and clean, though there might be some missing date and year in the file. In "_Select Output Format_" section, please choose "_comma delimited_", which will make my life easier! And also the script is specific to "comma delimited" format.
+
   - Column Name and Unit</br>
 
 | STN--- | WBAN | YEARMODA | TEMP | TEMP COUNT | DEWP | DEWP COUNT | SLP | SLP COUNT | STP | STP COUNT | VISIB | VISIB COUNT | WDSP | WDSP COUNT | MXSPD | GUST | MAX | MIN | PRCP | SNDP | FRSHTT |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | station number | Weather Bureau Air Force Navy number | year month day | average temperature | observation num to calculate mean temperature | average dew point | obervation num to calculate mean dew point | average sea level pressure | observation num to calculate mean sea level pressure | average station pressure | observation num to calculate mean station pressure | average visibility | observation num to calculate mean visibility | average wind speed | observation num to calculate mean wind speed | maximum sustained wind speed | maximum wind gust | maximum temperature (with flag) | minimum temperature (with flag) | total precipitation (with flag) | snow depth | Fog/Rain/Snow or Ice Pellets/Hail/Thunder/Tornado or Funnel Cloud |
+| Int. | Int. | Int. | Real (&deg;F) | Int. | Real (&deg;F) | Int. | Real (millibar) | Int. | Real (millibar) | Int. | Real (mile) | Int. | Real (knot) | Int. | Real (knot) | Real (knot) | Real (&deg;F) and Char (\*) | Real (&deg;F) and Char (\*) | Real (inch) and Char | Real (inch) | Int.|

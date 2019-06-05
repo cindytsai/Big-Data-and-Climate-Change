@@ -14,8 +14,7 @@ Since I import data into database manually by using [DB Browser](https://sqliteb
 ## Raw Data Source 
 - [Global Summary of the Day (GSOD)](https://www7.ncdc.noaa.gov/CDO/cdoselect.cmd?datasetabbv=GSOD&countryabbv=&georegionabbv=)</br>
 The data format and column name is nice and clean, though there might be some missing date and year in the file. In "_Select Output Format_" section, please choose "_comma delimited_", which will make my life easier! And also the script is specific to "comma delimited" format.
-  - Other information</br>
-  [documentation file](https://www7.ncdc.noaa.gov/CDO/GSOD_DESC.txt).
+  - See more in [documentation file](https://www7.ncdc.noaa.gov/CDO/GSOD_DESC.txt).
   - Column Name and Unit<br>
 
 | STN--- | WBAN | YEARMODA | TEMP | TEMP COUNT | DEWP | DEWP COUNT | SLP | SLP COUNT | STP | STP COUNT | VISIB | VISIB COUNT | WDSP | WDSP COUNT | MXSPD | GUST | MAX | MIN | PRCP | SNDP | FRSHTT |

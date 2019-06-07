@@ -36,7 +36,7 @@ The data format and column name is nice and clean, though there might be some mi
 Data include the occurrence of storms, other significant weather phenomena; rare, unusual, weather phenomena that generate media attention; and other significant meteorological events.
 
 ## Data
-- Convert and insert data into database.</br>
+- From [Global Summary of the Day](https://github.com/cindytsai/weather_report_and_climate_change#raw-data-source) into database.</br>
   - [convertData.py](https://github.com/cindytsai/weather_report_and_climate_change/blob/master/source/convertData.py)</br>
   The script converts data format and unit, then insert into database with table name "_year_".
   - Column Name and Unit</br>

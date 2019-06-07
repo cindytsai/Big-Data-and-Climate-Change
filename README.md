@@ -27,7 +27,7 @@ The data format and column name is nice and clean, though there might be some mi
   - See more in [documentation file](https://www7.ncdc.noaa.gov/CDO/GSOD_DESC.txt).
   - Column Name and Unit<br>
 
-| STN--- | WBAN | YEARMODA | TEMP | TEMP COUNT | DEWP | DEWP COUNT | SLP | SLP COUNT | STP | STP COUNT | VISIB | VISIB COUNT | WDSP | WDSP COUNT | MXSPD | GUST | MAX | MIN | PRCP | SNDP | FRSHTT |
+| STN--- | WBAN | YEARMODA | TEMP |  | DEWP | DEWP COUNT | SLP | SLP COUNT | STP | STP COUNT | VISIB | VISIB COUNT | WDSP | WDSP COUNT | MXSPD | GUST | MAX | MIN | PRCP | SNDP | FRSHTT |
 | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: | :---: |
 | station number | Weather Bureau Air Force Navy number | year month day | average temperature | observation num to calculate mean temperature | average dew point | obervation num to calculate mean dew point | average sea level pressure | observation num to calculate mean sea level pressure | average station pressure | observation num to calculate mean station pressure | average visibility | observation num to calculate mean visibility | average wind speed | observation num to calculate mean wind speed | maximum sustained wind speed | maximum wind gust | maximum temperature (with flag) | minimum temperature (with flag) | total precipitation (with flag) | snow depth | Fog/Rain/Snow or Ice Pellets/Hail/Thunder/Tornado or Funnel Cloud |
 | Int. | Int. | Int. | Real (&deg;F) | Int. | Real (&deg;F) | Int. | Real (millibar) | Int. | Real (millibar) | Int. | Real (mile) | Int. | Real (knot) | Int. | Real (knot) | Real (knot) | Real (&deg;F) and Char (\*) | Real (&deg;F) and Char (\*) | Real (inch) and Char | Real (inch) | Int.|
@@ -36,7 +36,9 @@ The data format and column name is nice and clean, though there might be some mi
 Data include the occurrence of storms, other significant weather phenomena; rare, unusual, weather phenomena that generate media attention; and other significant meteorological events.
 
 ## Data
-- From [Global Summary of the Day](https://github.com/cindytsai/weather_report_and_climate_change#raw-data-source) into database.</br>
+- From Global Summary of the Day into database.</br>
   - [convertData.py](https://github.com/cindytsai/weather_report_and_climate_change/blob/master/source/convertData.py)</br>
   The script converts data format and unit, then insert into database with table name "_year_".
   - Column Name and Unit</br>
+  
+
